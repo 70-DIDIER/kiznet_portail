@@ -1,61 +1,84 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Créer une solution WiFi avec :
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+    Connexion automatique à un portail captif.
 
-## About Laravel
+    Sélection d’un forfait Internet (1h, jour, mois...).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+    Paiement via Mobile Money (Orange, MTN, Moov).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+    Accès Internet activé automatiquement et sans mot de passe.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+🧩 Composants techniques
 
-## Learning Laravel
+Voici les éléments que tu devras développer/intégrer :
+1. Portail Captif Web
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Tu dois créer une interface web :
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+    Affichée dès qu’un utilisateur se connecte au WiFi.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+    Qui permet de choisir un forfait.
 
-## Laravel Sponsors
+    Qui intègre le paiement Mobile Money.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+    Qui gère automatiquement l’autorisation d’accès une fois le paiement effectué.
 
-### Premium Partners
+    Avec un tableau de bord d’administration local pour visualiser les connexions, paiements, etc.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+2. Routeur Mikrotik
 
-## Contributing
+    Configuré en mode Hotspot, il interagit avec ton application via l’API Mikrotik.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    Il identifie les utilisateurs via l’adresse MAC.
 
-## Code of Conduct
+    Après confirmation du paiement, ton app doit communiquer avec lui pour ouvrir l’accès à Internet.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+3. Base de données
 
-## Security Vulnerabilities
+Tu dois prévoir une BDD pour :
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    Suivre les utilisateurs connectés.
 
-## License
+    Historiser les paiements.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    Gérer les forfaits configurables.
+
+    Générer des statistiques de connexion.
+
+🔄 Fonctionnement global
+
+    L’utilisateur se connecte au WiFi (ex : “Connexion_Kiznet”).
+
+    Il est redirigé vers ton portail captif.
+
+    Il choisit un forfait (ex : 1h = 200 FCFA).
+
+    Il paie via Mobile Money.
+
+    Ton système reçoit le paiement, contacte le Mikrotik via API.
+
+    Mikrotik ouvre l’accès (adresse MAC autorisée pendant x temps).
+
+    L’utilisateur accède à Internet.
+
+🛠️ Technos à utiliser
+Élément	Technologie
+Interface	HTML, CSS, JavaScript
+Backend	PHP ou Laravel
+BDD	MySQL / MariaDB
+Paiement	API Mobile Money
+Matériel réseau	Routeur Mikrotik + API
+Hébergement	Serveur local ou mini PC
+Sécurité	HTTPS, logs, vérification paiement
+📦 Livrables attendus
+
+    ✅ Portail captif responsive
+
+    ✅ Interface forfaits + paiement
+
+    ✅ Activation auto après paiement
+
+    ✅ Tableau de bord administrateur
+
+    ✅ Documentation technique claire
+
